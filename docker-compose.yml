@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  api_vise:
+    build:
+      context: ./
+      dockerfile: ./api.Dockerfile
+    container_name: api_vise
+    networks:
+      advice_dockernet:
+        ipv4_address: 172.16.241.8
+    ports:
+      - "8080:5000"
+
+
+  app_vise:
+    build:
+      context: ./
+      dockerfile: ./app.Dockerfile
+    container_name: app_vise
+    networks:
+      advice_dockernet:
+        ipv4_address: 172.16.241.7
+    ports:
+      - "5050:8000"
+
+
+networks:
+  advice_dockernet:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.241.0/24

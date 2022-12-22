@@ -1,0 +1,7 @@
+SQLAlchemy==1.4.41
+virtualenv==20.16.5
+Flask==2.2.2
+mysqlclient==2.1.1
+connexion==2.14.1
+Werkzeug==2.2.2
+flask-cors==3.0.10

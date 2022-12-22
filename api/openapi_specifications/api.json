@@ -1,0 +1,262 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API",
+    "version": "0.0.1",
+    "description": "This section describes all operations that can be executed on the API."
+  },
+  "servers": [
+    {
+      "url": "https://0.0.0.0:8080"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Defines the car identifier",
+            "example": 12
+          },
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "rg": {
+            "type": "string",
+            "example": "296550744"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "12335183742"
+          },
+          "birth": {
+            "type": "string",
+            "example": "12/11/1998"
+          },
+          "admission": {
+            "type": "string",
+            "example": "12/01/2022"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/users": {
+      "summary": "Responsible for creating a car or reading a list of users.",
+      "get": {
+        "operationId": "api.read_all_users",
+        "description": "Retrieves a list of users.",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "The users list was retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "example1": {
+                    "summary": "GET users list response",
+                    "value": [
+                      {
+                        "id": 12,
+                        "name": "John Doe",
+                        "rg": "29.655.074-4",
+                        "cpf": "123.351.837-42",
+                        "birth": "12/11/1998",
+                        "admission": "12/01/2022"
+                      },
+                      {
+                        "id": 13,
+                        "name": "John Cena",
+                        "rg": "29.655.074-5",
+                        "cpf": "123.351.837-47",
+                        "birth": "10/10/1998",
+                        "admission": "12/01/2022"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "api.create_user",
+        "description": "Creates a new user according to the defined body parameters.",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "201": {
+            "description": "The user was created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "example1": {
+                    "summary": "POST response",
+                    "value": {
+                      "id": 12,
+                      "model": "John",
+                      "color": "Doe"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "cpf",
+                  "rg",
+                  "birth",
+                  "admission"
+                ],
+                "properties": {
+                  "name": {
+                    "description": "Defines the name of the user",
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "cpf": {
+                    "description": "Defines the CPF of the user",
+                    "type": "string",
+                    "example": "123.351.837-42"
+                  },
+                  "rg": {
+                    "description": "Defines the RG of the user",
+                    "example": "29.655.074-4",
+                    "type": "string"
+                  },
+                  "birth": {
+                    "description": "Defines the birth date of the user",
+                    "example": "1998-11-12",
+                    "type": "string"
+                  },
+                  "admission": {
+                    "description": "Defines the admission date of the user",
+                    "example": "2020-09-28",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "summary": "Responsible for reading or deleting a given user.",
+      "get": {
+        "operationId": "api.read_user",
+        "description": "Retrieves a user.",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "The users was retrieved successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                },
+                "examples": {
+                  "example1": {
+                    "summary": "GET user response",
+                    "value":
+                      {
+                        "id": 12,
+                        "name": "John Doe",
+                        "rg": "29.655.074-4",
+                        "cpf": "123.351.837-42",
+                        "birth": "12/11/1998",
+                        "admission": "12/01/2022"
+                      }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "api.update_user",
+        "description": "Update a user.",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "The user was updated successfully."
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "Defines the name of the user",
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "cpf": {
+                    "description": "Defines the CPF of the user",
+                    "type": "string",
+                    "example": "123.351.837-42"
+                  },
+                  "rg": {
+                    "description": "Defines the RG of the user",
+                    "example": "29.655.074-4",
+                    "type": "string"
+                  },
+                  "birth": {
+                    "description": "Defines the birth date of the user",
+                    "example": "1998-11-12",
+                    "type": "string"
+                  },
+                  "admission": {
+                    "description": "Defines the admission date of the user",
+                    "example": "2020-09-28",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "api.delete_user",
+        "description": "Deletes a user based on a given identifier.",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "204": {
+            "description": "The user was deleted successfully"
+          }
+        }
+      }
+    }
+  }
+}
